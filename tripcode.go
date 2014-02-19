@@ -1,4 +1,5 @@
 // Package tripcode generates 4chan comapitble tripcodes for use mainly in anonymous forums.
+//
 // There are different modifications of the tripcode algorythm. This one is based on code
 // from http://avimedia.livejournal.com/1583.html
 //
@@ -20,7 +21,7 @@ import (
 	"strings"
 )
 
-// Generates tripcode for the provided password
+// Tripcode function generates tripcode for the provided password
 func Tripcode(password string) string {
 	r := strings.NewReplacer(
 		"&", "&amp;",
