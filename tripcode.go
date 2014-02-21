@@ -1,18 +1,18 @@
-// Package tripcode generates 4chan comapitble tripcodes for use mainly in anonymous forums.
-//
-// There are different modifications of the tripcode algorythm. This one is based on code
-// from http://avimedia.livejournal.com/1583.html
-//
-// Example usage:
-//
-//  package main
-//
-//  import "github.com/aquilax/tripcode"
-//
-//  func main() {
-//	  print(tripcode.Tripcode("password")
-//  }
+/* 
+Package tripcode generates 4chan comapitble tripcodes for use mainly in anonymous forums.
+There are different modifications of the tripcode algorythm. This one is based on code
+from http://avimedia.livejournal.com/1583.html
 
+Example usage:
+
+  package main
+
+  import "github.com/aquilax/tripcode"
+
+  func main() {
+	  print(tripcode.Tripcode("password")
+  }
+*/
 package tripcode
 
 import (
