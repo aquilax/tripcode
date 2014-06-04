@@ -8,7 +8,11 @@ func TestTripcode(t *testing.T) {
 	cases := map[string]string{
 		"asd":        "TAPy3blMsc",
 		"adasd":      "IOuORdzMKw",
-		"!@#$%^&*()": "96TA4mR8Fc",
+		"!@#$%^&*()": "BpZUCmJAIQ",
+		"f}E":        "oUBoOTrysY",
+		"©":          "",
+		"訛":          "c8eDXvwFLQ",
+		"'":          "8/08awL.AE",
 	}
 	for pass, expected := range cases {
 		trip := Tripcode(pass)
