@@ -1,4 +1,4 @@
-/* 
+/*
 Package tripcode generates 4chan comapitble tripcodes for use mainly in anonymous forums.
 There are different modifications of the tripcode algorythm. This one is based on code
 from http://avimedia.livejournal.com/1583.html
@@ -17,12 +17,22 @@ package tripcode
 
 import (
 	"github.com/nyarlabo/go-crypt"
+	"github.com/qiniu/iconv"
 	"regexp"
 	"strings"
 )
 
 // Tripcode function generates tripcode for the provided password
 func Tripcode(password string) string {
+	cd, err := iconv.Open("SJIS", "utf-8")
+	if err != nil {
+		panic("iconv.Open failed!")
+	}
+	defer cd.Close()
+	password = cd.ConvString(password)
+	if password == "" {
+		return password
+	}
 	r := strings.NewReplacer(
 		"&", "&amp;",
 		"\"", "&quot;",
