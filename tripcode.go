@@ -30,9 +30,6 @@ func Tripcode(password string) string {
 	}
 	defer cd.Close()
 	password = cd.ConvString(password)
-	if password == "" {
-		return password
-	}
 	r := strings.NewReplacer(
 		"&", "&amp;",
 		"\"", "&quot;",
@@ -40,7 +37,13 @@ func Tripcode(password string) string {
 		"<", "&lt;",
 		">", "&gt;",
 	)
+	if password == "" {
+		return password
+	}
 	password = r.Replace(password)
+	if len(password) > 8 {
+		password = password[0:8]
+	}
 	salt := (password + "H.")[1:3]
 	re := regexp.MustCompile("/[^.\\/0-9:;<=>?@A-Z\\[\\\\]\\^_`a-z]/")
 	salt = re.ReplaceAllString(salt, ".")
