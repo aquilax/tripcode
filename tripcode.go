@@ -21,7 +21,15 @@ import (
 	"strings"
 )
 
-const SALT_TABLE = ".............................................../0123456789ABCDEFGABCDEFGHIJKLMNOPQRSTUVWXYZabcdefabcdefghijklmnopqrstuvwxyz....................................................................................................................................."
+const SALT_TABLE = "" +
+	"................................" +
+	".............../0123456789ABCDEF" +
+	"GABCDEFGHIJKLMNOPQRSTUVWXYZabcde" +
+	"fabcdefghijklmnopqrstuvwxyz....." +
+	"................................" +
+	"................................" +
+	"................................" +
+	"................................"
 
 func sjisToUtf8(text string) string {
 	cd, err := iconv.Open("SJIS", "utf-8")
