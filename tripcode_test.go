@@ -20,7 +20,6 @@ func TestGenerateSalt(t *testing.T) {
 			t.Error("Expected "+expected+", got", salt)
 		}
 	}
-
 }
 
 func TestTripcode(t *testing.T) {
@@ -31,8 +30,35 @@ func TestTripcode(t *testing.T) {
 		"f}E":        "oUBoOTrysY",
 		"©":          "",
 		"訛":          "c8eDXvwFLQ",
-		// @TODO: Figure out this case
-		//"'":          "8/08awL.AE",
+		"!":          "KNs1o0VDv6",
+		"@":          "z0MWdctOjE",
+		"#":          "u2YjtUz8MU",
+		"$":          "yflOPYrGcY",
+		"%":          "1t98deumW.",
+		"^":          "gBeeWo4hQg",
+		"&":          "MhCJJ7GVT.",
+		"*":          "o8gKYE6H8A",
+		"(":          "SGn2Wwr9CY",
+		")":          "E9k1wjKgHI",
+		"-":          "tHbGiobWdM",
+		"_":          "m3eoQIlU/U",
+		"=":          "wmxP/NHJxA",
+		"+":          "IHLbs/YhoA",
+		"[":          "7h2f0/nQ3w",
+		"]":          "rjM99frkZs",
+		"{":          "odBt7a7lv6",
+		"}":          "ATNP9hXHcg",
+		";":          "zglc7ct1Ls",
+		":":          ".BmRMKOub2",
+		"'":          "8/08awL.AE",
+		"\"":         "gt1azVccY2",
+		"<":          "D1YGKrvmeg",
+		">":          "afqVxck0Ts",
+		",":          "YeQQgdCJE6",
+		".":          "XONm83jaIU",
+		"\\":         "9xUxYS2dlM",
+		"?":          "cPUZU5OGFs",
+		" ":          "wqLZLRuzPQ",
 	}
 	for pass, expected := range cases {
 		trip := Tripcode(pass)

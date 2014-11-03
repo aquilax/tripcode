@@ -44,7 +44,6 @@ func htmlEscape(text string) string {
 	r := strings.NewReplacer(
 		"&", "&amp;",
 		"\"", "&quot;",
-		"'", "&#39;",
 		"<", "&lt;",
 		">", "&gt;",
 	)
