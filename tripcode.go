@@ -21,7 +21,7 @@ import (
 	"strings"
 )
 
-const SALT_TABLE = "" +
+const saltTable = "" +
 	"................................" +
 	".............../0123456789ABCDEF" +
 	"GABCDEFGHIJKLMNOPQRSTUVWXYZabcde" +
@@ -55,7 +55,7 @@ func generateSalt(password string) string {
 	var salt [2]rune
 	password = substr(password+"H.", 1, 2)
 	for i, r := range password {
-		salt[i] = rune(SALT_TABLE[r%256])
+		salt[i] = rune(saltTable[r%256])
 	}
 	return string(salt[:])
 }
@@ -69,7 +69,7 @@ func substr(s string, pos, length int) string {
 	return string(runes[pos:l])
 }
 
-// Tripcode function generates tripcode for the provided password
+// Tripcode generates tripcode for the provided password
 func Tripcode(password string) string {
 	password = sjisToUtf8(password)
 	password = htmlEscape(password)
