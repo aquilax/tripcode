@@ -4,4 +4,4 @@
 
 Tripcode generation library for golang.
 
-Based on code from http://avimedia.livejournal.com/1583.html
+Based on code from http://avimedia.livejournal.com/1583.html and https://github.com/KenanY/tripcode
