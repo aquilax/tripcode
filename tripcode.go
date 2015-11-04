@@ -11,6 +11,7 @@ Example usage:
 
   func main() {
 	  print(tripcode.Tripcode("password")
+	  print(tripcode.SecureTripcode("password", "secure salt"))
   }
 */
 package tripcode
@@ -24,7 +25,6 @@ import (
 	"github.com/nyarlabo/go-crypt"
 	"golang.org/x/text/encoding/japanese"
 	"golang.org/x/text/transform"
-	//"github.com/qiniu/iconv"
 )
 
 const saltTable = "" +
