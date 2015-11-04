@@ -7,7 +7,7 @@ Example usage:
 
   package main
 
-  import "github.com/aquilax/tripcode"
+  import "github.com/ComSecNinja/tripcode"
 
   func main() {
 	  print(tripcode.Tripcode("password")
