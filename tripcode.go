@@ -16,12 +16,15 @@ Example usage:
 package tripcode
 
 import (
-	"encoding/base64"
+	"bytes"
 	"crypto/sha1"
+	"encoding/base64"
 	"strings"
 
 	"github.com/nyarlabo/go-crypt"
-	"github.com/qiniu/iconv"
+	"golang.org/x/text/encoding/japanese"
+	"golang.org/x/text/transform"
+	//"github.com/qiniu/iconv"
 )
 
 const saltTable = "" +
@@ -34,13 +37,10 @@ const saltTable = "" +
 	"................................" +
 	"................................"
 
-func sjisToUtf8(text string) string {
-	cd, err := iconv.Open("SJIS", "utf-8")
-	defer cd.Close()
-	if err != nil {
-		panic("iconv.Open failed!")
-	}
-	return cd.ConvString(text)
+func convert(text string) string {
+	var s bytes.Buffer
+	transform.NewWriter(&s, japanese.ShiftJIS.NewEncoder()).Write([]byte(text))
+	return s.String()
 }
 
 func htmlEscape(text string) string {
@@ -72,11 +72,12 @@ func substr(s string, pos, length int) string {
 }
 
 func prepare(password string) string {
-	password = sjisToUtf8(password)
+	password = convert(password)
 	password = htmlEscape(password)
 	if len(password) > 8 {
 		password = substr(password, 0, 8)
 	}
+	return password
 }
 
 // Tripcode generates a tripcode for the provided password.
@@ -99,9 +100,9 @@ func SecureTripcode(password string, secureSalt string) string {
 	// Append password+salt and calculate sha1 hash.
 	hash := sha1.New().Sum(append([]byte(password), []byte(secureSalt)...))
 	// Encode the hash to base64 string, forming our salt for this tripcode.
-	salt := base64.NewEncoding(base64.StdEncoding).EncodeToString(hash)
+	salt := base64.StdEncoding.EncodeToString(hash)
 	// Crypt the password using "_..A." + 4 of the first bytes of the salt.
-	code := crypt.Crypt(password, "_..A." + salt[:4])
+	code := crypt.Crypt(password, "_..A."+salt[:4])
 	l := len(code)
 	return code[l-10 : l]
 }
