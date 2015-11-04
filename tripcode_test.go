@@ -11,7 +11,7 @@ func TestGenerateSalt(t *testing.T) {
 		"!@#$%^&*()": "G.",
 		"f}E":        ".E",
 		"©":          "H.",
-		"訛":          "H.",
+		"訛":         "H.",
 		"'":          "H.",
 	}
 	for pass, expected := range cases {
@@ -28,8 +28,8 @@ func TestTripcode(t *testing.T) {
 		"adasd":      "IOuORdzMKw",
 		"!@#$%^&*()": "BpZUCmJAIQ",
 		"f}E":        "oUBoOTrysY",
-		"©":          "",
-		"訛":          "c8eDXvwFLQ",
+		"©":          "hEp4vbueZo", // Should be nothing?
+		"訛":         "c8eDXvwFLQ",
 		"!":          "KNs1o0VDv6",
 		"@":          "z0MWdctOjE",
 		"#":          "u2YjtUz8MU",
