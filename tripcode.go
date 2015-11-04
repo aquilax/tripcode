@@ -95,13 +95,10 @@ func Tripcode(password string) string {
 // SecureTripcode generates a secure tripcode based
 // on the provided password and a secure salt combination.
 func SecureTripcode(password string, secureSalt string) string {
-	// Prepare the password (encoding conversion etc.).
 	password = prepare(password)
 	// Append password+salt and calculate sha1 hash.
 	hash := sha1.New().Sum(append([]byte(password), []byte(secureSalt)...))
-	// Encode the hash to base64 string, forming our salt for this tripcode.
 	salt := base64.StdEncoding.EncodeToString(hash)
-	// Crypt the password using "_..A." + 4 of the first bytes of the salt.
 	code := crypt.Crypt(password, "_..A."+salt[:4])
 	l := len(code)
 	return code[l-10 : l]
