@@ -1,6 +1,6 @@
 /*
-Package tripcode generates 4chan comapitble tripcodes for use mainly in anonymous forums.
-There are different modifications of the tripcode algorythm. This one is based on code
+Package tripcode generates 4chan compatible tripcodes mainly for anonymous forums.
+There are different implementations of the tripcode algorithm. This one is based on code
 from http://avimedia.livejournal.com/1583.html
 
 Example usage:
