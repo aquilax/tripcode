@@ -17,8 +17,16 @@ func TestGenerateSalt(t *testing.T) {
 	for pass, expected := range cases {
 		salt := generateSalt(pass)
 		if expected != salt {
-			t.Error("Expected "+expected+", got", salt)
+			t.Error("Expected \"%s\", got \"%s\"", expected, salt)
 		}
+	}
+}
+
+func TestSecureTripcode(t *testing.T) {
+	expect := "PqG4A0fkUs"
+	trip := SecureTripcode("pass", "salt")
+	if trip != expect {
+		t.Errorf("SecureTripcode: expected \"%s\", got \"%s\"", expect, trip)
 	}
 }
 
@@ -63,7 +71,7 @@ func TestTripcode(t *testing.T) {
 	for pass, expected := range cases {
 		trip := Tripcode(pass)
 		if expected != trip {
-			t.Error("Expected "+expected+", got", trip)
+			t.Error("Expected \"%s\", got \"%s\"", expected, trip)
 		}
 	}
 }
