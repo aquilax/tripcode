@@ -7,4 +7,5 @@ Based on code from [avimedia](http://avimedia.livejournal.com/1583.html), [Kenan
 ## Usage
     tripcode.Tripcode("password")
 and
+
     tripcode.SecureTripcode("password", "secure salt")
