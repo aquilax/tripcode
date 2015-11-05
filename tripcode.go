@@ -75,7 +75,7 @@ func prepare(password string) string {
 	password = convert(password)
 	password = htmlEscape(password)
 	if len(password) > 8 {
-		password = substr(password, 0, 8)
+		password = password[:8]
 	}
 	return password
 }
