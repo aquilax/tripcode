@@ -1,24 +1,30 @@
 /*
-Package tripcode generates 4chan comapitble tripcodes for use mainly in anonymous forums.
-There are different modifications of the tripcode algorythm. This one is based on code
+Package tripcode generates 4chan compatible tripcodes mainly for anonymous forums.
+There are different implementations of the tripcode algorithm. This one is based on code
 from http://avimedia.livejournal.com/1583.html
 
 Example usage:
 
   package main
 
-  import "github.com/aquilax/tripcode"
+  import "github.com/ComSecNinja/tripcode"
 
   func main() {
 	  print(tripcode.Tripcode("password")
+	  print(tripcode.SecureTripcode("password", "secure salt"))
   }
 */
 package tripcode
 
 import (
-	"github.com/nyarlabo/go-crypt"
-	"github.com/qiniu/iconv"
+	"bytes"
+	"crypto/sha1"
+	"encoding/base64"
 	"strings"
+
+	"github.com/nyarlabo/go-crypt"
+	"golang.org/x/text/encoding/japanese"
+	"golang.org/x/text/transform"
 )
 
 const saltTable = "" +
@@ -31,13 +37,10 @@ const saltTable = "" +
 	"................................" +
 	"................................"
 
-func sjisToUtf8(text string) string {
-	cd, err := iconv.Open("SJIS", "utf-8")
-	defer cd.Close()
-	if err != nil {
-		panic("iconv.Open failed!")
-	}
-	return cd.ConvString(text)
+func convert(text string) string {
+	var s bytes.Buffer
+	transform.NewWriter(&s, japanese.ShiftJIS.NewEncoder()).Write([]byte(text))
+	return s.String()
 }
 
 func htmlEscape(text string) string {
@@ -68,18 +71,35 @@ func substr(s string, pos, length int) string {
 	return string(runes[pos:l])
 }
 
-// Tripcode generates tripcode for the provided password
-func Tripcode(password string) string {
-	password = sjisToUtf8(password)
+func prepare(password string) string {
+	password = convert(password)
 	password = htmlEscape(password)
+	if len(password) > 8 {
+		password = password[:8]
+	}
+	return password
+}
+
+// Tripcode generates a tripcode for the provided password.
+func Tripcode(password string) string {
+	password = prepare(password)
 	if password == "" {
 		return password
 	}
-	if len(password) > 8 {
-		password = substr(password, 0, 8)
-	}
 	salt := generateSalt(password)
 	code := crypt.Crypt(password, salt)
+	l := len(code)
+	return code[l-10 : l]
+}
+
+// SecureTripcode generates a secure tripcode based
+// on the provided password and a secure salt combination.
+func SecureTripcode(password string, secureSalt string) string {
+	password = prepare(password)
+	// Append password+salt and calculate sha1 hash.
+	hash := sha1.New().Sum(append([]byte(password), []byte(secureSalt)...))
+	salt := base64.StdEncoding.EncodeToString(hash)
+	code := crypt.Crypt(password, "_..A."+salt[:4])
 	l := len(code)
 	return code[l-10 : l]
 }

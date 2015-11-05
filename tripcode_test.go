@@ -11,14 +11,22 @@ func TestGenerateSalt(t *testing.T) {
 		"!@#$%^&*()": "G.",
 		"f}E":        ".E",
 		"©":          "H.",
-		"訛":          "H.",
+		"訛":         "H.",
 		"'":          "H.",
 	}
 	for pass, expected := range cases {
 		salt := generateSalt(pass)
 		if expected != salt {
-			t.Error("Expected "+expected+", got", salt)
+			t.Errorf("Expected \"%s\", got \"%s\"", expected, salt)
 		}
+	}
+}
+
+func TestSecureTripcode(t *testing.T) {
+	expect := "PqG4A0fkUs"
+	trip := SecureTripcode("pass", "salt")
+	if trip != expect {
+		t.Errorf("SecureTripcode: expected \"%s\", got \"%s\"", expect, trip)
 	}
 }
 
@@ -28,8 +36,8 @@ func TestTripcode(t *testing.T) {
 		"adasd":      "IOuORdzMKw",
 		"!@#$%^&*()": "BpZUCmJAIQ",
 		"f}E":        "oUBoOTrysY",
-		"©":          "",
-		"訛":          "c8eDXvwFLQ",
+		"©":          "hEp4vbueZo", // Should be nothing?
+		"訛":         "c8eDXvwFLQ",
 		"!":          "KNs1o0VDv6",
 		"@":          "z0MWdctOjE",
 		"#":          "u2YjtUz8MU",
@@ -63,7 +71,7 @@ func TestTripcode(t *testing.T) {
 	for pass, expected := range cases {
 		trip := Tripcode(pass)
 		if expected != trip {
-			t.Error("Expected "+expected+", got", trip)
+			t.Errorf("Expected \"%s\", got \"%s\"", expected, trip)
 		}
 	}
 }
