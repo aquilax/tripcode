@@ -17,7 +17,7 @@ func TestGenerateSalt(t *testing.T) {
 	for pass, expected := range cases {
 		salt := generateSalt(pass)
 		if expected != salt {
-			t.Error("Expected \"%s\", got \"%s\"", expected, salt)
+			t.Errorf("Expected \"%s\", got \"%s\"", expected, salt)
 		}
 	}
 }
@@ -71,7 +71,7 @@ func TestTripcode(t *testing.T) {
 	for pass, expected := range cases {
 		trip := Tripcode(pass)
 		if expected != trip {
-			t.Error("Expected \"%s\", got \"%s\"", expected, trip)
+			t.Errorf("Expected \"%s\", got \"%s\"", expected, trip)
 		}
 	}
 }
