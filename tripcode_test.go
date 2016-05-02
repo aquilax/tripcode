@@ -11,7 +11,7 @@ func TestGenerateSalt(t *testing.T) {
 		"!@#$%^&*()": "G.",
 		"f}E":        ".E",
 		"©":          "H.",
-		"訛":         "H.",
+		"訛":          "H.",
 		"'":          "H.",
 	}
 	for pass, expected := range cases {
@@ -36,8 +36,8 @@ func TestTripcode(t *testing.T) {
 		"adasd":      "IOuORdzMKw",
 		"!@#$%^&*()": "BpZUCmJAIQ",
 		"f}E":        "oUBoOTrysY",
-		"©":          "hEp4vbueZo", // Should be nothing?
-		"訛":         "c8eDXvwFLQ",
+		"©":          "", // Should be nothing?
+		"訛":          "c8eDXvwFLQ",
 		"!":          "KNs1o0VDv6",
 		"@":          "z0MWdctOjE",
 		"#":          "u2YjtUz8MU",
@@ -73,5 +73,17 @@ func TestTripcode(t *testing.T) {
 		if expected != trip {
 			t.Errorf("Expected \"%s\", got \"%s\"", expected, trip)
 		}
+	}
+}
+
+func TestTripcodeOverflow(t *testing.T) {
+	pass := ""
+	for i := 0; i < 30000; i++ {
+		pass += string(rune(i))
+	}
+	expected := "Ggih.96XPU"
+	trip := Tripcode(pass)
+	if expected != trip {
+		t.Errorf("Expected \"%s\", got \"%s\"", expected, trip)
 	}
 }
