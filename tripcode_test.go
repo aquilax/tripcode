@@ -67,6 +67,8 @@ func TestTripcode(t *testing.T) {
 		"\\":         "9xUxYS2dlM",
 		"?":          "cPUZU5OGFs",
 		" ":          "wqLZLRuzPQ",
+		"ññññ":       "",
+		"糯ｫT弓(窶":     "Pants.f1Fk",
 	}
 	for pass, expected := range cases {
 		trip := Tripcode(pass)
