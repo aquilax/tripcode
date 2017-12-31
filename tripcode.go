@@ -55,20 +55,11 @@ func htmlEscape(text string) string {
 
 func generateSalt(password string) string {
 	var salt [2]rune
-	password = substr(password+"H.", 1, 2)
-	for i, r := range password {
+	pass := []rune(password + "H.")[1:3]
+	for i, r := range pass {
 		salt[i] = rune(saltTable[r%256])
 	}
 	return string(salt[:])
-}
-
-func substr(s string, pos, length int) string {
-	runes := []rune(s)
-	l := pos + length
-	if l > len(runes) {
-		l = len(runes)
-	}
-	return string(runes[pos:l])
 }
 
 func prepare(password string) string {
