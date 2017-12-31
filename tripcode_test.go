@@ -70,7 +70,6 @@ func TestTripcode(t *testing.T) {
 		"ññññ":       "",
 		"糯ｫT弓(窶":     "Pants.f1Fk",
 	}
-	Tripcode("ññññ")
 	for pass, expected := range cases {
 		trip := Tripcode(pass)
 		if expected != trip {
