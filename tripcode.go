@@ -22,7 +22,6 @@ import (
 	"encoding/base64"
 	"strings"
 
-	"github.com/nyarlabo/go-crypt"
 	"golang.org/x/text/encoding/japanese"
 	"golang.org/x/text/transform"
 )
@@ -78,7 +77,7 @@ func Tripcode(password string) string {
 		return password
 	}
 	salt := generateSalt(password)
-	code := crypt.Crypt(password, salt)
+	code := crypt(password, salt)
 	l := len(code)
 	return code[l-10 : l]
 }
@@ -90,7 +89,7 @@ func SecureTripcode(password string, secureSalt string) string {
 	// Append password+salt and calculate sha1 hash.
 	hash := sha1.New().Sum(append([]byte(password), []byte(secureSalt)...))
 	salt := base64.StdEncoding.EncodeToString(hash)
-	code := crypt.Crypt(password, "_..A."+salt[:4])
+	code := crypt(password, "_..A."+salt[:4])
 	l := len(code)
 	return code[l-10 : l]
 }
