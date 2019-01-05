@@ -22,7 +22,7 @@ import (
 	"encoding/base64"
 	"strings"
 
-	"github.com/nyarlabo/go-crypt"
+	"gitlab.com/nyarla/go-crypt"
 	"golang.org/x/text/encoding/japanese"
 	"golang.org/x/text/transform"
 )
