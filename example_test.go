@@ -6,13 +6,13 @@ import (
 	"github.com/aquilax/tripcode"
 )
 
-func ExampleTripcode_Tripcode() {
+func ExampleTripcode() {
 	fmt.Println(tripcode.Tripcode("password"))
 	// Output:
 	// ozOtJW9BFA
 }
 
-func ExampleTripcode_SecureTripcode() {
+func ExampleSecureTripcode() {
 	fmt.Println(tripcode.SecureTripcode("password", "salt"))
 	// Output:
 	// Xtv3pggJ9U
