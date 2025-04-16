@@ -5,14 +5,14 @@ from http://avimedia.livejournal.com/1583.html
 
 Example usage:
 
-  package main
+	  package main
 
-  import "github.com/aquilax/tripcode"
+	  import "github.com/aquilax/tripcode"
 
-  func main() {
-	  print(tripcode.Tripcode("password")
-	  print(tripcode.SecureTripcode("password", "secure salt"))
-  }
+	  func main() {
+		  print(tripcode.Tripcode("password")
+		  print(tripcode.SecureTripcode("password", "secure salt"))
+	  }
 */
 package tripcode
 
@@ -88,8 +88,8 @@ func Tripcode(password string) string {
 func SecureTripcode(password string, secureSalt string) string {
 	password = prepare(password)
 	// Append password+salt and calculate sha1 hash.
-	hash := sha1.New().Sum(append([]byte(password), []byte(secureSalt)...))
-	salt := base64.StdEncoding.EncodeToString(hash)
+	hash := sha1.Sum(append([]byte(password), []byte(secureSalt)...))
+	salt := base64.StdEncoding.EncodeToString(hash[:])
 	code := crypt.Crypt(password, "_..A."+salt[:4])
 	l := len(code)
 	return code[l-10 : l]
